@@ -14,14 +14,17 @@ services:
     environment:
       HUB_HOST: hub
 
-  chrome:
-    image: selenium/node-chrome:3.14.0-gallium
+  chrome-debug:
+    image: selenium/node-chrome-debug:3.14.0-gallium
+    ports:
+      - "5900:5900"
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
       - hub
     environment:
       HUB_HOST: hub
+      VNC_NO_PASSWORD: 1
 
   hub:
     image: selenium/hub:3.14.0-gallium

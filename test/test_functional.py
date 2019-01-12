@@ -7,11 +7,11 @@ class TestStringMethods(unittest.TestCase):
 
     def test_firefox_site(self):
         firefox = webdriver.Remote(
-                  command_executor='http://hub:4444/wd/hub',
-                  desired_capabilities=DesiredCapabilities.FIREFOX)
+            command_executor='http://hub:4444/wd/hub',
+            desired_capabilities=DesiredCapabilities.FIREFOX)
 
         firefox.get('https://www.google.com')
-        self.assertEqual(firefox.title, 'Google')
+        assert 'Google' in firefox.title
         firefox.quit()
 
     def test_chrome_browser(self):
@@ -20,7 +20,7 @@ class TestStringMethods(unittest.TestCase):
             desired_capabilities=DesiredCapabilities.CHROME)
 
         chrome.get('https://www.google.com')
-        self.assertEqual(chrome.title, 'Google')
+        assert 'Google' in chrome.title
         chrome.quit()
 
 
