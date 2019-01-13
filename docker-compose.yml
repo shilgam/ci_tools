@@ -2,8 +2,11 @@ version: '3'
 services:
   web:
     build: .
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/usr/src/app
+    ports:
+      - "8000:8000"
 
   firefox:
     image: selenium/node-firefox:3.14.0-gallium

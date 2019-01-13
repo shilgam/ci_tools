@@ -4,14 +4,15 @@ import unittest
 
 
 class TestStringMethods(unittest.TestCase):
+    url = 'http://web:8000/'
 
     def test_firefox_site(self):
         firefox = webdriver.Remote(
             command_executor='http://hub:4444/wd/hub',
             desired_capabilities=DesiredCapabilities.FIREFOX)
 
-        firefox.get('https://www.google.com')
-        assert 'Google' in firefox.title
+        firefox.get(self.url)
+        self.assertEqual(firefox.title, 'Welcome to Django')
         firefox.quit()
 
     def test_chrome_browser(self):
@@ -19,8 +20,8 @@ class TestStringMethods(unittest.TestCase):
             command_executor='http://hub:4444/wd/hub',
             desired_capabilities=DesiredCapabilities.CHROME)
 
-        chrome.get('https://www.google.com')
-        assert 'Google' in chrome.title
+        chrome.get(self.url)
+        self.assertEqual(chrome.title, 'Welcome to Django')
         chrome.quit()
 
 
