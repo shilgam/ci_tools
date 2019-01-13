@@ -1,0 +1,35 @@
+version: '3'
+services:
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "8000:8000"
+
+  firefox:
+    image: selenium/node-firefox:3.14.0-gallium
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - hub
+    environment:
+      HUB_HOST: hub
+
+  chrome-debug:
+    image: selenium/node-chrome-debug:3.14.0-gallium
+    ports:
+      - "5900:5900"
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - hub
+    environment:
+      HUB_HOST: hub
+      VNC_NO_PASSWORD: 1
+
+  hub:
+    image: selenium/hub:3.14.0-gallium
+    ports:
+      - "4444:4444"
