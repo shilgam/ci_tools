@@ -1,0 +1,3 @@
+- name: runTests
+  service: testweb
+  command: sh -c './bin/test.sh python ./manage.py test test/'
