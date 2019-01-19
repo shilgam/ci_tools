@@ -1,71 +1,11 @@
 version: '3.4'
 services:
-  testweb:
-    image: web-django-test:latest
-    depends_on:
-      - web
-      - firefox
-      - chrome-debug
-    volumes:
-      - .:/usr/src/app
-    entrypoint: ['./bin/test.sh']
-    command: python ./manage.py test test/
-
   web:
     build: .
-    image: web-django-test:latest
+    image: web-django:latest
     entrypoint: ["./bin/entrypoint.sh"]
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/usr/src/app
     ports:
       - "8000:8000"
-    # healthcheck:
-    #   test: "sh -c 'wget -qO - http://0.0.0.0:8000 || exit 1'"
-
-  firefox:
-    image: selenium/node-firefox:3.14.0-gallium
-    volumes:
-      - /dev/shm:/dev/shm
-    depends_on:
-      - hub
-    environment:
-      HUB_HOST: hub
-    restart: on-failure
-    healthcheck:
-      test: "sh -c '/opt/bin/check-grid.sh --host 0.0.0.0 --port 5555 || exit 1'"
-      interval: 5s
-      timeout: 10s
-      retries: 3
-      start_period: 30s
-
-  chrome-debug:
-    image: selenium/node-chrome-debug:3.14.0-gallium
-    ports:
-      - "5900:5900"
-    volumes:
-      - /dev/shm:/dev/shm
-    depends_on:
-      - hub
-    environment:
-      HUB_HOST: hub
-      VNC_NO_PASSWORD: 1
-    restart: on-failure
-    healthcheck:
-      test: "sh -c '/opt/bin/check-grid.sh --host 0.0.0.0 --port 5555 || exit 1'"
-      interval: 5s
-      timeout: 10s
-      retries: 3
-      start_period: 30s
-
-  hub:
-    image: selenium/hub:3.14.0-gallium
-    ports:
-      - "4444:4444"
-    restart: on-failure
-    healthcheck:
-      test: 'sh -c /opt/bin/check-grid.sh --host 0.0.0.0 --port 4444 || exit 1'
-      interval: 5s
-      timeout: 10s
-      retries: 3
-      start_period: 30s
