@@ -8,11 +8,8 @@ services:
       - chrome-debug
     volumes:
       - .:/usr/src/app
-    # restart: on-failure
     entrypoint: ['./bin/test.sh']
     command: python ./manage.py test test/
-    # healthcheck:
-    #   start_period: 5s
 
   web:
     build: .
@@ -23,13 +20,6 @@ services:
       - .:/usr/src/app
     ports:
       - "8000"
-    # restart: on-failure
-    # healthcheck:
-    #   test: "sh -c 'wget -qO - http://0.0.0.0:8000 || exit 1'"
-    #   interval: 5s
-    #   timeout: 2s
-    #   retries: 3
-    #   start_period: 10s
 
   firefox:
     image: selenium/node-firefox:3.14.0-gallium
@@ -39,13 +29,6 @@ services:
       - hub
     environment:
       HUB_HOST: hub
-    # restart: on-failure
-    # healthcheck:
-    #   test: "sh -c '/opt/bin/check-grid.sh --host 0.0.0.0 --port 5555 || exit 1'"
-    #   interval: 5s
-    #   timeout: 2s
-    #   retries: 3
-    #   start_period: 10s
 
   chrome-debug:
     image: selenium/node-chrome-debug:3.14.0-gallium
@@ -58,22 +41,8 @@ services:
     environment:
       HUB_HOST: hub
       VNC_NO_PASSWORD: 1
-    # restart: on-failure
-    # healthcheck:
-    #   test: "sh -c '/opt/bin/check-grid.sh --host 0.0.0.0 --port 5555 || exit 1'"
-    #   interval: 5s
-    #   timeout: 2s
-    #   retries: 3
-    #   start_period: 10s
 
   hub:
     image: selenium/hub:3.14.0-gallium
     ports:
       - "4444:4444"
-    # restart: on-failure
-    # healthcheck:
-    #   test: 'sh -c /opt/bin/check-grid.sh --host 0.0.0.0 --port 4444 || exit 1'
-    #   interval: 5s
-    #   timeout: 10s
-    #   retries: 3
-    #   start_period: 10s
