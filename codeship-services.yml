@@ -1,17 +1,24 @@
 testweb:
   build: .
+  # image: web-django:latest
   depends_on:
     - web
     - firefox
     - chrome-debug
-  entrypoint: ['./bin/test.sh']
-  command: sh -c "python ./manage.py test test/"
+    # - hub
+  entrypoint: ["./bin/test.sh"]
+  # volumes_from:
+  #   - web
 
 web:
   build: .
-  # image: web-django:latest
+  # build:
+  #   image: web-django:latest
+  #   dockerfile: Dockerfile
   # entrypoint: ["./bin/entrypoint.sh"]
-  command: sh -c "python manage.py runserver 0.0.0.0:8000"
+  command: python manage.py runserver 0.0.0.0:8000
+  # volumes:
+  #   - .:/usr/src/app
   ports:
     - "8000"
 
@@ -39,6 +46,6 @@ chrome-debug:
 
 hub:
   image: selenium/hub:3.14.0-gallium
-  ports:
-    - "4444"
-    # - "4444:4444"
+  # ports:
+  #   - "4444" # seems that it does not suppourted
+  #   - "4444:4444"
