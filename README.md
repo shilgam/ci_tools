@@ -1,5 +1,7 @@
 # tdd-with-python
 
+[![Build Status](https://travis-ci.com/shilgam/tdd-with-python.svg?branch=master)](https://travis-ci.com/shilgam/tdd-with-python)
+
 ## Prerequisites
 
 1. Docker installed
