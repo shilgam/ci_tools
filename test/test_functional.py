@@ -5,25 +5,19 @@ import unittest
 
 class TestStringMethods(unittest.TestCase):
     url = 'http://web:8000/'
+    selenium_hub_url = 'http://hub:4444/wd/hub'
 
-    def test_firefox_site(self):
-        firefox = webdriver.Remote(
-            command_executor='http://hub:4444/wd/hub',
-            desired_capabilities=DesiredCapabilities.FIREFOX)
+    def test_site_firefox(self):
+        self.base_test_suite(DesiredCapabilities.FIREFOX)
 
-        firefox.get(self.url)
-        self.assertEqual(firefox.title, 'Welcome to Django')
-        firefox.quit()
+    def test_site_chome(self):
+        self.base_test_suite(DesiredCapabilities.CHROME)
 
-    def test_chrome_browser(self):
-        chrome = webdriver.Remote(
-            command_executor='http://hub:4444/wd/hub',
-            desired_capabilities=DesiredCapabilities.CHROME)
+    def base_test_suite(self, browser_desired_caps):
+        browser = webdriver.Remote(
+            command_executor=self.selenium_hub_url,
+            desired_capabilities=browser_desired_caps)
 
-        chrome.get(self.url)
-        self.assertEqual(chrome.title, 'Welcome to Django')
-        chrome.quit()
-
-
-if __name__ == '__main__':
-    unittest.main()
+        browser.get(self.url)
+        self.assertEqual(browser.title, 'Welcome to Django')
+        browser.quit()
