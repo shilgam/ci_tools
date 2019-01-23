@@ -1,5 +1,7 @@
 # tdd-with-python
 
+[![Build Status](https://travis-ci.com/shilgam/tdd-with-python.svg?branch=master)](https://travis-ci.com/shilgam/tdd-with-python)
+
 ## Prerequisites
 
 1. Docker installed
@@ -14,7 +16,13 @@
 
         $ docker-compose up --build
 
+1. Launch the app: http://0.0.0.0:8000/
+
+1. Stop all services and remove containers:
+
+        $ docker-compose down
+
 1. Run the test suite:
 
-        $ docker-compose run --rm web sh -c 'python -W ignore test/* '
+        $ docker-compose --project-name tests --file docker-compose.test.yml up --abort-on-container-exit
     Note: To visually see what the browser is doing you will need to create connection to VNC Server `localhost:5900`
