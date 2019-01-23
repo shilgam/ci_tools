@@ -3,21 +3,22 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import unittest
 
 
-class TestStringMethods(unittest.TestCase):
+class NewVisitorTest(unittest.TestCase):
     url = 'http://web:8000/'
-    selenium_hub_url = 'http://hub:4444/wd/hub'
 
-    def test_site_firefox(self):
-        self.base_test_suite(DesiredCapabilities.FIREFOX)
+    def setUp(self):
+        selenium_hub_url = 'http://hub:4444/wd/hub'
+        self.browser = webdriver.Remote(
+            command_executor=selenium_hub_url,
+            desired_capabilities=DesiredCapabilities.CHROME)
 
-    def test_site_chome(self):
-        self.base_test_suite(DesiredCapabilities.CHROME)
+    def teamDown(self):
+        self.browser.quit()
 
-    def base_test_suite(self, browser_desired_caps):
-        browser = webdriver.Remote(
-            command_executor=self.selenium_hub_url,
-            desired_capabilities=browser_desired_caps)
+    def test_can_start_a_list(self):
+        self.browser.get(self.url)
+        self.assertEqual('Welcome to Django', self.browser.title)
 
-        browser.get(self.url)
-        self.assertEqual(browser.title, 'Welcome to Django')
-        browser.quit()
+
+if __name__ == '__main__':
+    unittest.main(warnings='ignore')
