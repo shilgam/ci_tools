@@ -11,6 +11,13 @@ before_install:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
 
-script:
-  - docker-compose --file docker-compose.test.yml build
-  - docker-compose --file docker-compose.test.yml run testweb
+jobs:
+  include:
+    - stage: "Unit Tests"
+      script:
+        - docker-compose run web python manage.py test
+    - stage: "Functional Tests"
+      script:
+        - >
+          docker-compose --project-name functests --file docker-compose.test.yml build &&
+          docker-compose --project-name functests --file docker-compose.test.yml run testweb
