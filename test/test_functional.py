@@ -17,7 +17,7 @@ class NewVisitorTest(unittest.TestCase):
 
     def test_can_start_a_list(self):
         self.browser.get(self.url)
-        self.assertEqual('Welcome to Django', self.browser.title)
+        self.assertEqual('To-Do list', self.browser.title)
 
 
 if __name__ == '__main__':
