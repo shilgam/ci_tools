@@ -13,10 +13,11 @@ before_install:
 
 jobs:
   include:
-    - stage: "Unit Tests"
+    - stage: "Tests"
+      name: "Unit Tests"
       script:
         - docker-compose run web python manage.py test
-    - stage: "Functional Tests"
+    - name: "Functional Tests"
       script:
         - >
           docker-compose --project-name functests --file docker-compose.test.yml build &&
