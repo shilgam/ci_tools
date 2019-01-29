@@ -9,3 +9,4 @@ deployment.env
 
 # Project specific
 heroku-cli/
+travis-cli/
