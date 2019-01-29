@@ -22,3 +22,11 @@ jobs:
         - >
           docker-compose --project-name functests --file docker-compose.test.yml build &&
           docker-compose --project-name functests --file docker-compose.test.yml run testweb
+
+    - stage: "Deploy to production"
+      script:
+        - >
+          echo "$HEROKU_API_KEY" | docker login --username=$HEROKU_LOGIN --password-stdin registry.heroku.com &&
+          heroku container:push web --app $HEROKU_APP_NAME &&
+          heroku container:release web --app $HEROKU_APP_NAME
+      if: branch = master
