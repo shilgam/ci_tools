@@ -32,3 +32,29 @@
   1. Unit tests:
 
           $ docker-compose run web python manage.py test
+
+## Deploy to Heroku
+
+1. Make sure you have a working Docker installation (eg. `docker ps`) and that you’re logged in to Heroku (`heroku login`).
+
+1. Log in to Container Registry:
+
+        $ heroku container:login
+
+1. Navigate to the app’s directory and create a Heroku app:
+
+        $ heroku create        
+        Creating salty-fortress-4191... done, stack is cedar-14
+        https://salty-fortress-4191.herokuapp.com/ | https://git.heroku.com/salty-fortress-4191.git
+
+1. Build the image and push to Container Registry:
+
+        $ heroku container:push web
+
+1. Then release the image to your app:
+
+        $ heroku container:release web
+
+1. Now open the app in your browser:
+
+        $ heroku open
