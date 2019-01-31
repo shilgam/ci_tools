@@ -39,9 +39,30 @@ class NewVisitorTest(unittest.TestCase):
         # appears in the list table
         inputbox.send_keys(Keys.ENTER)
         time.sleep(1)
+
         table = self.browser.find_element_by_id('id_list_table')
         rows = table.find_elements_by_tag_name('tr')
         self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
+
+        # There is still a text box inviting user to add another item.
+        # she enters one more item
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox.send_keys('Use peacock feathers to make a fly')
+        inputbox.send_keys(Keys.ENTER)
+        time.sleep(1)
+
+        # # The page updates again, and now shows both items on her list
+        # table = self.browser.find_element_by_id('id_list_table')
+        # rows = table.find_elements_by_tag_name('tr')
+        # self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
+        # self.assertIn(
+        #     '2: Use peacock feathers to make a fly',
+        #     [row.text for row in rows]
+        # )
+        #
+        # # User wonders whether the site will remember her list. Then she sees
+        # # that the site has generated a unique url for her.
+        # # User visits that URL - her to-do list is still there.
 
 
 if __name__ == '__main__':
