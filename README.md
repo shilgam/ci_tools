@@ -22,16 +22,16 @@
 
         $ docker-compose down
 
-1. Run the test suite:
+1. Run the test suite
 
-  1. Functional tests:
+    1. Functional tests:
 
-          $ docker-compose --project-name tests --file docker-compose.test.yml up --abort-on-container-exit
-      Note: To visually see what the browser is doing you will need to create connection to VNC Server `localhost:5900`
+            $ docker-compose --project-name tests --file docker-compose.test.yml up --abort-on-container-exit
+        Note: To visually see what the browser is doing you will need to create connection to VNC Server `localhost:5900`
 
-  1. Unit tests:
+    1. Unit tests:
 
-          $ docker-compose run web python manage.py test
+            $ docker-compose run web python manage.py test
 
 ## Deploy to Heroku
 
