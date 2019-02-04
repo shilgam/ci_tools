@@ -17,9 +17,10 @@ ENV PYTHONUNBUFFERED 1
 
 COPY . .
 
-# Run the image as a non-root user
-RUN adduser -D myuser
-USER myuser
+# TODO: fix permission issue in Travis
+## Run the image as a non-root user
+# RUN adduser -D myuser
+# USER myuser
 
 # Expose is NOT supported by Heroku
 # EXPOSE 5000
