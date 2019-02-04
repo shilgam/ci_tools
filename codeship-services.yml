@@ -11,6 +11,7 @@ web:
   command: gunicorn --bind 0.0.0.0:8000 superlists.wsgi
   ports:
     - "8000"
+  entrypoint: ["./bin/entrypoint.sh"]
 
 firefox:
   image: selenium/node-firefox:3.14.0-gallium
