@@ -1,25 +1,14 @@
 version: '3.4'
 services:
   testweb:
-    image: web-django:latest
+    build: .
     depends_on:
-      - web
       - firefox
       - chrome-debug
     volumes:
       - .:/usr/src/app
     entrypoint: ['./bin/test.sh']
     command: python ./manage.py test functional_tests
-
-  web:
-    build: .
-    image: web-django:latest
-    entrypoint: ["./bin/entrypoint.sh"]
-    command: gunicorn --bind 0.0.0.0:8000 superlists.wsgi
-    volumes:
-      - .:/usr/src/app
-    ports:
-      - "8000"
 
   firefox:
     image: selenium/node-firefox:3.14.0-gallium
