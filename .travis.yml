@@ -16,7 +16,7 @@ jobs:
     - stage: "Tests"
       name: "Unit Tests"
       script:
-        - docker-compose run web python manage.py test
+        - docker-compose run web python manage.py test lists
     - name: "Functional Tests"
       script:
         - >
