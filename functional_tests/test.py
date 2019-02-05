@@ -1,12 +1,15 @@
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+import socket
 import time
-import unittest
+
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from selenium import webdriver
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from selenium.webdriver.common.keys import Keys
 
 
-class NewVisitorTest(unittest.TestCase):
-    url = 'http://web:8000/'
+class NewVisitorTest(StaticLiveServerTestCase):
+    # Set host to externally accessible web server address
+    host = socket.gethostbyname(socket.gethostname())
 
     def setUp(self):
         selenium_hub_url = 'http://hub:4444/wd/hub'
@@ -22,8 +25,8 @@ class NewVisitorTest(unittest.TestCase):
         rows = table.find_elements_by_tag_name('tr')
         self.assertIn(row_text, [row.text for row in rows])
 
-    def test_can_start_a_list(self):
-        self.browser.get(self.url)
+    def test_can_start_a_list_and_retrieve_it_later(self):
+        self.browser.get(self.live_server_url)
 
         # page title and header
         self.assertEqual('To-Do list', self.browser.title)
@@ -61,7 +64,3 @@ class NewVisitorTest(unittest.TestCase):
         # User wonders whether the site will remember her list. Then she sees
         # that the site has generated a unique url for her.
         # User visits that URL - her to-do list is still there.
-
-
-if __name__ == '__main__':
-    unittest.main(warnings='ignore')
