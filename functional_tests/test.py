@@ -85,3 +85,17 @@ class NewVisitorTest(StaticLiveServerTestCase):
         # She notices that her list has a unique URL
         edith_list_url = self.browser.current_url
         # self.assertRegex(edith_list_url, '/lists/.=')
+
+        # Now a user, Fransis, comes along to the site.abs
+
+        # # We do a new browser session to make sure that no information
+        # # of Edith's is coming through from cookies etc
+
+        # Francis visits the home page. There is no sign of Edith's list
+
+        # Francis starts a new list by entering a new item.
+        # He is less interesting that Edith...
+
+        # Fransis gets his own unique URL
+
+        # Again, there is no trace of Edith's list
