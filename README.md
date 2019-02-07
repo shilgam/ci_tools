@@ -26,7 +26,7 @@
 
     1. Unit tests
 
-            $ docker-compose run web python manage.py test lists
+            $ docker-compose run --rm web python manage.py test lists
 
     1. Functional tests
 
@@ -37,7 +37,9 @@
         1. run tests:
 
                 $ docker-compose --project-name functests --file docker-compose.test.yml run --rm testweb
-            Note: To visually see what the browser is doing you will need to create connection to VNC Server `localhost:5900`
+            Notes:
+            - To visually see what the browser is doing you will need to create connection to VNC Server `localhost:5900`
+            - Selenium Grid URL: http://0.0.0.0:4444/
 
         1. clean up after tests:
 
