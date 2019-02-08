@@ -104,15 +104,16 @@ class NewVisitorTest(StaticLiveServerTestCase):
         inputbox = self.browser.find_element_by_id('id_new_item')
         inputbox.send_keys('Buy milk')
         inputbox.send_keys(Keys.ENTER)
-        # self.wait_for_row_in_list_table('1: Buy milk')
-        #
-        # # Fransis gets his own unique URL
-        # francis_list_url = self.browser.current_url
-        # self.assertRegex(francis_list_url, '/lists/.+')
-        # self.assertNotEqual(francis_list_url, edith_list_url)
-        #
-        # # Again, there is no trace of Edith's list
-        # self.assertNotIn('Buy peacock feathers', page_text)
-        # self.assertIn('Buy milk', page_text)
-        #
-        # # Satisfied, they both go back to sleep
+        self.wait_for_row_in_list_table('1: Buy milk')
+
+        # Fransis gets his own unique URL
+        francis_list_url = self.browser.current_url
+        self.assertRegex(francis_list_url, '/lists/.+')
+        self.assertNotEqual(francis_list_url, edith_list_url)
+
+        # Again, there is no trace of Edith's list
+        page_text = self.browser.find_element_by_tag_name('body').text
+        self.assertNotIn('Buy peacock feathers', page_text)
+        self.assertIn('Buy milk', page_text)
+
+        # Satisfied, they both go back to sleep
