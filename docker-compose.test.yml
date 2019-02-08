@@ -8,7 +8,9 @@ services:
     volumes:
       - .:/usr/src/app
     entrypoint: ['./bin/test.sh']
-    command: python ./manage.py test functional_tests
+    command: python ./manage.py test functional_tests --parallel
+    environment:
+      DJANGO_TEST_PROCESSES: 1
 
   firefox:
     image: selenium/node-firefox:3.14.0-gallium
@@ -30,8 +32,12 @@ services:
     environment:
       HUB_HOST: hub
       VNC_NO_PASSWORD: 1
+      NODE_MAX_INSTANCES: 3
+      NODE_MAX_SESSION: 3
 
   hub:
     image: selenium/hub:3.14.0-gallium
     ports:
       - "4444:4444"
+    environment:
+      GRID_MAX_SESSION: 6
