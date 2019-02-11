@@ -1,18 +1,25 @@
-image:
-  # Official docker compose image
-  name: docker/compose:1.22.0 # update tag to whatever version you want to use.
-  entrypoint: ["/bin/sh", "-c"]
+image: docker
 
 services:
   - docker:dind
 
 before_script:
+  - apk add --no-cache py-pip
+  - pip install docker-compose
   - docker version
   - docker-compose version
 
-build:
-  stage: build
+stages:
+  - test
+  - deploy
+
+Unit Tests:
+  stage: test
   script:
-    - docker-compose down
-    - docker-compose build
-    - docker-compose up tester-image
+    - docker-compose run --rm web python manage.py test lists
+
+Func Tests:
+  stage: test
+  script:
+    - docker-compose --project-name functests --file docker-compose.test.yml build
+    - docker-compose --project-name functests --file docker-compose.test.yml run testweb
