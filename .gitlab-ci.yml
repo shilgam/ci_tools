@@ -15,17 +15,23 @@ stages:
 
 Unit Tests:
   stage: test
+  only:
+    - /^master.*$/
   script:
     - docker-compose run --rm web python manage.py test lists
 
 Func Tests:
   stage: test
+  only:
+    - /^master.*$/
   script:
     - docker-compose --project-name functests --file docker-compose.test.yml build
     - docker-compose --project-name functests --file docker-compose.test.yml run testweb
 
 Deploy Staging:
   stage: deploy
+  only:
+    - /^master.*$/
   variables:
     HEROKU_APP_NAME: minimylist-staging
     HEROKU_LOGIN: _
