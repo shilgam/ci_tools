@@ -1,10 +1,14 @@
 - type: parallel
   steps:
+    - name: Unit Tests
+      service: testweb
+      command: python manage.py test lists
+    - name: Func Tests
+      service: testweb
+      command: python manage.py test functional_tests
 
-  - name: Unit Tests
-    service: testweb
-    command: python manage.py test lists
-
-  - name: Func Tests
-    service: testweb
-    command: python manage.py test functional_tests
+- type: serial
+  steps:
+    - name: Deploy
+      service: testweb
+      command: echo '>>> fake deploy'
