@@ -1,11 +1,26 @@
-image: docker
+image:
+  name: docker/compose:1.22.0
+  entrypoint: ["/bin/sh", "-c"]
 
 services:
   - docker:dind
 
+variables:
+  # When using dind service we need to instruct docker, to talk with the
+  # daemon started inside of the service. The daemon is available with
+  # a network connection instead of the default /var/run/docker.sock socket.
+  #
+  # The 'docker' hostname is the alias of the service container as described at
+  # https://docs.gitlab.com/ee/ci/docker/using_docker_images.html#accessing-the-services
+  #
+  # Note that if you're using Kubernetes executor, the variable should be set to
+  # tcp://localhost:2375 because of how Kubernetes executor connects services
+  # to the job container
+  DOCKER_HOST: "tcp://docker:2375"
+  # improve performance for dind
+  DOCKER_DRIVER: overlay2
+
 before_script:
-  - apk add --no-cache py-pip
-  - pip install docker-compose
   - docker version
   - docker-compose version
 
