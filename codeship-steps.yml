@@ -1,3 +1,10 @@
-- name: runTests
-  service: testweb
-  command: python manage.py test functional_tests
+- type: parallel
+  steps:
+
+  - name: Unit Tests
+    service: testweb
+    command: python manage.py test lists
+
+  - name: Func Tests
+    service: testweb
+    command: python manage.py test functional_tests
