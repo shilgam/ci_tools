@@ -1,15 +1,6 @@
 sudo: required
 services:
-  - docker
-
-env:
-  - DOCKER_COMPOSE_VERSION=1.23.1
-
-before_install:
-  - sudo rm /usr/local/bin/docker-compose
-  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-  - chmod +x docker-compose
-  - sudo mv docker-compose /usr/local/bin
+  - docker/compose:1.23.1
 
 jobs:
   include:
@@ -29,4 +20,4 @@ jobs:
           echo "$HEROKU_API_KEY" | docker login --username=$HEROKU_LOGIN --password-stdin registry.heroku.com &&
           heroku container:push web --app $HEROKU_APP_NAME &&
           heroku container:release web --app $HEROKU_APP_NAME
-      if: branch = master
+      if: branch =~ /^(master|travis).*/
