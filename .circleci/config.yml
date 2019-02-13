@@ -1,0 +1,40 @@
+version: 2
+jobs:
+  test:
+    machine:
+      image: circleci/classic:201711-01
+    steps:
+      - checkout
+      - run:
+          name: Unit Tests
+          working_directory: .
+          command: pwd && ls && docker-compose run web python manage.py test lists
+      - run:
+          name: Func Tests
+          working_directory: .
+          command: docker-compose --project-name functests --file docker-compose.test.yml run testweb
+
+  deploy:
+    machine:
+      image: circleci/classic:201711-01
+    steps:
+      - run:
+          name: Deploy
+          working_directory: .
+          command: echo ">>> Fake Deploy"
+
+
+workflows:
+  version: 2
+  test_and_deploy:
+    jobs:
+      - test:
+          filters:
+            branches:
+              only: /^(master|circle).*/
+      - deploy:
+          filters:
+            branches:
+              only: /^(master|circle).*/
+          requires:
+            - test
