@@ -2,10 +2,9 @@ version: '3.4'
 services:
   web:
     build: .
-    image: web-django:latest
-    entrypoint: ["./bin/entrypoint.sh"]
-    command: gunicorn --bind 0.0.0.0:8000 superlists.wsgi
     volumes:
       - .:/usr/src/
     ports:
       - "8000:8000"
+    entrypoint: ["./bin/entrypoint.sh"]
+    command: gunicorn --bind 0.0.0.0:8000 superlists.wsgi

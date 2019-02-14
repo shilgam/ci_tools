@@ -2,15 +2,15 @@ version: '3.4'
 services:
   testweb:
     build: .
+    volumes:
+      - .:/usr/src/
     depends_on:
       - firefox
       - chrome-debug
-    volumes:
-      - .:/usr/src/
-    entrypoint: ['./bin/test.sh']
-    command: python ./manage.py test functional_tests --parallel
     environment:
       DJANGO_TEST_PROCESSES: 1
+    entrypoint: ["./bin/test.sh"]
+    command: python ./manage.py test functional_tests --parallel
 
   firefox:
     image: selenium/node-firefox:3.14.0-gallium
@@ -23,12 +23,12 @@ services:
 
   chrome-debug:
     image: selenium/node-chrome-debug:3.14.0-gallium
-    ports:
-      - "5900:5900"
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
       - hub
+    ports:
+      - "5900:5900"
     environment:
       HUB_HOST: hub
       VNC_NO_PASSWORD: 1
