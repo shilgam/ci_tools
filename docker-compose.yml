@@ -6,6 +6,6 @@ services:
     entrypoint: ["./bin/entrypoint.sh"]
     command: gunicorn --bind 0.0.0.0:8000 superlists.wsgi
     volumes:
-      - .:/usr/src/app
+      - .:/usr/src/
     ports:
       - "8000:8000"

@@ -10,12 +10,12 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
 RUN mkdir /usr/src/app
 WORKDIR /usr/src/app
 
-COPY ./requirements.txt .
+COPY ./app/requirements.txt .
 RUN pip install -r requirements.txt
 
 ENV PYTHONUNBUFFERED 1
 
-COPY . .
+COPY . /usr/src/
 
 # TODO: fix permission issue in Travis
 ## Run the image as a non-root user

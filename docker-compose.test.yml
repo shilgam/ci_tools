@@ -6,7 +6,7 @@ services:
       - firefox
       - chrome-debug
     volumes:
-      - .:/usr/src/app
+      - .:/usr/src/
     entrypoint: ['./bin/test.sh']
     command: python ./manage.py test functional_tests --parallel
     environment:
