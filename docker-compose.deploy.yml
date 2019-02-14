@@ -1,20 +1,10 @@
 version: '3.4'
 services:
-  # web:
-  #   build: .
-  #   image: web-django:latest
-  #   entrypoint: ["./bin/entrypoint.sh"]
-  #   command: python manage.py runserver 0.0.0.0:8000
-  #   volumes:
-  #     - .:/usr/src/app
-  #   ports:
-  #     - "8000:8000"
-
-  travis_cli:
+  travis:
     # The Travis Client: https://github.com/travis-ci/travis.rb#readme
     image: skandyla/travis-cli
 
-  heroku_cli:
+  heroku:
     # https://github.com/wingrunr21/alpine-heroku-cli
     image: wingrunr21/alpine-heroku-cli
     volumes:

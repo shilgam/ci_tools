@@ -51,10 +51,14 @@ Deploy Staging:
     HEROKU_APP_NAME: minimylist-staging
     HEROKU_LOGIN: _
   script:
-    - docker-compose build
-    - docker image ls
-
+    # login
     - echo $HEROKU_API_KEY | docker login --username=_ --password-stdin registry.heroku.com
-    - docker build -t registry.heroku.com/$HEROKU_APP_NAME/web .
+
+    # build
+    - docker build --tag registry.heroku.com/$HEROKU_APP_NAME/web .
+
+    # push
     - docker push registry.heroku.com/$HEROKU_APP_NAME/web
-    - docker run --rm -e HEROKU_API_KEY=$HEROKU_API_KEY wingrunr21/alpine-heroku-cli container:release web --app $HEROKU_APP_NAME
+
+    # release
+    - docker-compose --project-name deploy --file docker-compose.deploy.yml run --rm heroku container:release web --app $HEROKU_APP_NAME
