@@ -40,8 +40,7 @@ Func Tests:
   only:
     - /^(master|gitlab).*$/
   script:
-    - docker-compose --project-name functests --file docker-compose.test.yml build
-    - docker-compose --project-name functests --file docker-compose.test.yml run testweb
+    - docker-compose --project-name functests --file docker-compose.test.yml run --rm testweb
 
 Deploy Staging:
   stage: deploy

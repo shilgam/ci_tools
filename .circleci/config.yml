@@ -6,20 +6,20 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Unit Tests
+          name: "Unit Tests"
           working_directory: .
-          command: pwd && ls && docker-compose run web python manage.py test lists
+          command: pwd && docker-compose run --rm web python manage.py test lists
       - run:
-          name: Func Tests
+          name: "Func Tests"
           working_directory: .
-          command: docker-compose --project-name functests --file docker-compose.test.yml run testweb
+          command: docker-compose --project-name functests --file docker-compose.test.yml run --rm testweb
 
   deploy:
     machine:
       image: circleci/classic:201711-01
     steps:
       - run:
-          name: Deploy
+          name: "Deploy"
           working_directory: .
           command: echo ">>> Fake Deploy"
 
