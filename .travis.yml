@@ -8,12 +8,14 @@ jobs:
       name: "Unit Tests"
       script:
         - docker-compose run --rm web python manage.py test lists
-    - name: "Functional Tests"
+
+    - name: "Func Tests"
       script:
         - >
           docker-compose --project-name functests --file docker-compose.test.yml run --rm testweb
 
     - stage: "Deploy"
+      name: "Deploy Prod"
       script:
         - >
           # login
@@ -24,5 +26,4 @@ jobs:
 
           # release
           heroku container:release web --app $HEROKU_APP_NAME
-
       if: branch =~ /^(master|travis).*/
