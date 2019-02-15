@@ -18,11 +18,10 @@ jobs:
       name: "Deploy Prod"
       script:
         - >
-          # Note: `echo $HEROKU_API_KEY` reveals the secret key!
-          echo "$HEROKU_API_KEY"
+          echo $HEROKU_API_KEY # Travis not reveals the secret keys
 
           # login
-          echo "$HEROKU_API_KEY" | docker login --username=$HEROKU_LOGIN --password-stdin registry.heroku.com
+          echo "HEROKU_API_KEY | docker login --username=$HEROKU_LOGIN --password-stdin registry.heroku.com
 
           # build & push
           heroku container:push web --app $HEROKU_APP_NAME

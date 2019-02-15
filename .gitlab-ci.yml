@@ -50,7 +50,8 @@ Deploy Staging:
     HEROKU_APP_NAME: minimylist-staging
     HEROKU_LOGIN: _
   script:
-    - echo $HEROKU_API_KEY # Note: `echo $HEROKU_API_KEY` reveals the secret key!
+    # Note: `echo $HEROKU_API_KEY` reveals the secret key!
+
     # login
     - echo $HEROKU_API_KEY | docker login --username=_ --password-stdin registry.heroku.com
 
