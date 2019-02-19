@@ -1,34 +1,62 @@
 version: 2
 jobs:
-  test:
+  unit_test:
     machine:
       image: circleci/classic:201711-01
     steps:
       - checkout
       - run:
-          name: Unit Tests
+          name: "Unit Tests"
           working_directory: .
-          command: pwd && ls && docker-compose run web python manage.py test lists
+          command: pwd && docker-compose run --rm web python manage.py test lists
+
+  func_test:
+    machine:
+      image: circleci/classic:201711-01
+    steps:
+      - checkout
       - run:
-          name: Func Tests
+          name: "Func Tests"
           working_directory: .
-          command: docker-compose --project-name functests --file docker-compose.test.yml run testweb
+          command: docker-compose --file docker-compose.test.yml run --rm web
 
   deploy:
     machine:
       image: circleci/classic:201711-01
+    environment:
+      HEROKU_APP_NAME: minimylist-intgr
+      HEROKU_LOGIN: _
     steps:
+      - checkout
       - run:
-          name: Deploy
+          name: "Deploy Intgr"
           working_directory: .
-          command: echo ">>> Fake Deploy"
+          command: |
+            # Note: `echo $HEROKU_API_KEY` reveals the secret key!
+
+            # login
+            echo $HEROKU_API_KEY | docker login --username=$HEROKU_LOGIN --password-stdin registry.heroku.com
+            echo $HEROKU_API_KEY | docker login --username=$HEROKU_LOGIN --password-stdin registry.heroku.com
+
+            # build
+            docker build --tag registry.heroku.com/$HEROKU_APP_NAME/web .
+
+            # push
+            docker push registry.heroku.com/$HEROKU_APP_NAME/web
+
+            # release
+            docker-compose --project-name deploy --file docker-compose.deploy.yml run -e HEROKU_API_KEY=$HEROKU_API_KEY --rm heroku container:release web --app $HEROKU_APP_NAME
 
 
 workflows:
   version: 2
   test_and_deploy:
     jobs:
-      - test:
+      - unit_test:
+          filters:
+            branches:
+              only: /^(master|circle).*/
+      - func_test:
           filters:
             branches:
               only: /^(master|circle).*/
@@ -37,4 +65,5 @@ workflows:
             branches:
               only: /^(master|circle).*/
           requires:
-            - test
+            - unit_test
+            - func_test

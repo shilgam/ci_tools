@@ -7,17 +7,25 @@ jobs:
     - stage: "Tests"
       name: "Unit Tests"
       script:
-        - docker-compose run web python manage.py test lists
-    - name: "Functional Tests"
-      script:
-        - >
-          docker-compose --project-name functests --file docker-compose.test.yml build &&
-          docker-compose --project-name functests --file docker-compose.test.yml run testweb
+        - docker-compose run --rm web python manage.py test lists
 
-    - stage: "Deploy to production"
+    - name: "Func Tests"
       script:
         - >
-          echo "$HEROKU_API_KEY" | docker login --username=$HEROKU_LOGIN --password-stdin registry.heroku.com &&
-          heroku container:push web --app $HEROKU_APP_NAME &&
+          docker-compose --file docker-compose.test.yml run --rm web
+
+    - stage: "Deploy"
+      name: "Deploy Prod"
+      script:
+        - >
+          echo $HEROKU_API_KEY # Travis not reveals the secret keys
+
+          # login
+          echo "HEROKU_API_KEY | docker login --username=$HEROKU_LOGIN --password-stdin registry.heroku.com
+
+          # build & push
+          heroku container:push web --app $HEROKU_APP_NAME
+
+          # release
           heroku container:release web --app $HEROKU_APP_NAME
       if: branch =~ /^(master|travis).*/

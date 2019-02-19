@@ -24,26 +24,22 @@
 
 1. Run the test suite
 
-    1. Unit tests
-
-            $ docker-compose run --rm web python manage.py test lists
-
     1. Functional tests
-
-        1. build test environment:
-
-                $ docker-compose --project-name functests --file docker-compose.test.yml build
 
         1. run tests:
 
-                $ docker-compose --project-name functests --file docker-compose.test.yml run --rm testweb
+                $ docker-compose --file docker-compose.test.yml run --rm web
             Notes:
             - To visually see what the browser is doing you will need to create connection to VNC Server `localhost:5900`
             - Selenium Grid URL: http://0.0.0.0:4444/
 
         1. clean up after tests:
 
-                $ docker-compose --project-name functests --file docker-compose.test.yml down
+                $ docker-compose --file docker-compose.test.yml down
+
+    1. Unit tests
+
+            $ docker-compose run --rm web python manage.py test lists
 
 ## Deploy to Heroku
 
