@@ -6,8 +6,9 @@ services:
       - .:/usr/src/
     depends_on:
       - chrome
+      - chrome2
     environment:
-      DJANGO_TEST_PROCESSES: 1
+      DJANGO_TEST_PROCESSES: 2
     entrypoint: ["./bin/test.sh"]
     command: python ./manage.py test functional_tests --parallel
 
@@ -22,6 +23,15 @@ services:
     environment:
       HUB_HOST: hub
       VNC_NO_PASSWORD: 1
+
+  chrome2:
+    image: selenium/node-chrome:3.14.0-gallium
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - hub
+    environment:
+      HUB_HOST: hub
 
   hub:
     image: selenium/hub:3.14.0-gallium
