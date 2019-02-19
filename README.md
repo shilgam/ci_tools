@@ -1,6 +1,6 @@
-# tdd-with-python
+# ci_tools
 
-[![Build Status](https://travis-ci.com/shilgam/tdd-with-python.svg?branch=master)](https://travis-ci.com/shilgam/tdd-with-python)
+[![Build Status](https://travis-ci.com/shilgam/tdd-with-python.svg?branch=master)](https://travis-ci.com/shilgam/tdd-with-python) [![pipeline status](https://gitlab.com/shilgam1/ci_tools/badges/master/pipeline.svg)](https://gitlab.com/shilgam1/ci_tools/commits/master) [![Codeship Status for shilgam/ci_tools](https://app.codeship.com/projects/84dc83c0-1686-0137-368c-02228243811b/status?branch=master)](https://app.codeship.com/projects/327923) [![CircleCI](https://circleci.com/gh/shilgam/ci_tools.svg?style=svg)](https://circleci.com/gh/shilgam/ci_tools)
 
 ## Prerequisites
 
@@ -40,29 +40,3 @@
     1. Unit tests
 
             $ docker-compose run --rm web python manage.py test lists
-
-## Deploy to Heroku
-
-1. Make sure you have a working Docker installation (eg. `docker ps`) and that you’re logged in to Heroku (`heroku login`).
-
-1. Log in to Container Registry:
-
-        $ heroku container:login
-
-1. Navigate to the app’s directory and create a Heroku app:
-
-        $ heroku create
-        Creating salty-fortress-4191... done, stack is cedar-14
-        https://salty-fortress-4191.herokuapp.com/ | https://git.heroku.com/salty-fortress-4191.git
-
-1. Build the image and push to Container Registry:
-
-        $ heroku container:push web
-
-1. Then release the image to your app:
-
-        $ heroku container:release web
-
-1. Now open the app in your browser:
-
-        $ heroku open
