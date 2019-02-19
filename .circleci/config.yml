@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  test:
+  unit_test:
     machine:
       image: circleci/classic:201711-01
     steps:
@@ -9,6 +9,12 @@ jobs:
           name: "Unit Tests"
           working_directory: .
           command: pwd && docker-compose run --rm web python manage.py test lists
+
+  func_test:
+    machine:
+      image: circleci/classic:201711-01
+    steps:
+      - checkout
       - run:
           name: "Func Tests"
           working_directory: .
@@ -46,7 +52,11 @@ workflows:
   version: 2
   test_and_deploy:
     jobs:
-      - test:
+      - unit_test:
+          filters:
+            branches:
+              only: /^(master|circle).*/
+      - func_test:
           filters:
             branches:
               only: /^(master|circle).*/
@@ -55,4 +65,5 @@ workflows:
             branches:
               only: /^(master|circle).*/
           requires:
-            - test
+            - unit_test
+            - func_test
