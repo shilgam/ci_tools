@@ -8,8 +8,12 @@ webapp:
     - chrome2
     - chrome3
     - chrome4
+    - chrome5
+    - chrome6
+    - chrome7
+    - chrome8
   environment:
-    DJANGO_TEST_PROCESSES: 4
+    DJANGO_TEST_PROCESSES: 8
   entrypoint: ["./bin/test.sh"]
 
 chrome:
@@ -43,6 +47,46 @@ chrome3:
     VNC_NO_PASSWORD: 1
 
 chrome4:
+  image: selenium/node-chrome:3.14.0-gallium
+  volumes:
+    - /dev/shm:/dev/shm
+  depends_on:
+    - hub
+  environment:
+    HUB_HOST: hub
+    VNC_NO_PASSWORD: 1
+
+chrome5:
+  image: selenium/node-chrome:3.14.0-gallium
+  volumes:
+    - /dev/shm:/dev/shm
+  depends_on:
+    - hub
+  environment:
+    HUB_HOST: hub
+    VNC_NO_PASSWORD: 1
+
+chrome6:
+  image: selenium/node-chrome:3.14.0-gallium
+  volumes:
+    - /dev/shm:/dev/shm
+  depends_on:
+    - hub
+  environment:
+    HUB_HOST: hub
+    VNC_NO_PASSWORD: 1
+
+chrome7:
+  image: selenium/node-chrome:3.14.0-gallium
+  volumes:
+    - /dev/shm:/dev/shm
+  depends_on:
+    - hub
+  environment:
+    HUB_HOST: hub
+    VNC_NO_PASSWORD: 1
+
+chrome8:
   image: selenium/node-chrome:3.14.0-gallium
   volumes:
     - /dev/shm:/dev/shm
