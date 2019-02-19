@@ -3,23 +3,14 @@ webapp:
     image: registry.heroku.com/minimylist/web
     dockerfile: Dockerfile
   encrypted_env_file: deployment.env.encrypted
-
   depends_on:
-    - firefox
-    - chrome-debug
+    - chrome
+  environment:
+    DJANGO_TEST_PROCESSES: 1
   entrypoint: ["./bin/test.sh"]
 
-firefox:
-  image: selenium/node-firefox:3.14.0-gallium
-  volumes:
-    - /dev/shm:/dev/shm
-  depends_on:
-    - hub
-  environment:
-    HUB_HOST: hub
-
-chrome-debug:
-  image: selenium/node-chrome-debug:3.14.0-gallium
+chrome:
+  image: selenium/node-chrome:3.14.0-gallium
   volumes:
     - /dev/shm:/dev/shm
   depends_on:
@@ -30,6 +21,8 @@ chrome-debug:
 
 hub:
   image: selenium/hub:3.14.0-gallium
+  environment:
+    GRID_MAX_SESSION: 1
 
 
 heroku-dockercfg-generator:

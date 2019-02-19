@@ -5,24 +5,14 @@ services:
     volumes:
       - .:/usr/src/
     depends_on:
-      - firefox
-      - chrome-debug
+      - chrome
     environment:
       DJANGO_TEST_PROCESSES: 1
     entrypoint: ["./bin/test.sh"]
     command: python ./manage.py test functional_tests --parallel
 
-  firefox:
-    image: selenium/node-firefox:3.14.0-gallium
-    volumes:
-      - /dev/shm:/dev/shm
-    depends_on:
-      - hub
-    environment:
-      HUB_HOST: hub
-
-  chrome-debug:
-    image: selenium/node-chrome-debug:3.14.0-gallium
+  chrome:
+    image: selenium/node-chrome:3.14.0-gallium
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
@@ -32,12 +22,10 @@ services:
     environment:
       HUB_HOST: hub
       VNC_NO_PASSWORD: 1
-      NODE_MAX_INSTANCES: 3
-      NODE_MAX_SESSION: 3
 
   hub:
     image: selenium/hub:3.14.0-gallium
     ports:
       - "4444:4444"
     environment:
-      GRID_MAX_SESSION: 6
+      GRID_MAX_SESSION: 1

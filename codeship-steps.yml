@@ -8,23 +8,23 @@
 
     - name: Func Tests
       service: webapp
-      command: python manage.py test functional_tests
+      command: python manage.py test functional_tests --parallel
 
-- name: Deploy Acc
-  type: serial
-  tag: ^(master|codeship)
-  steps:
-    - name: Push Image
-      service: webapp
-      type: push
-      image_name: registry.heroku.com/minimylist-acc/web
-      registry: registry.heroku.com
-      dockercfg_service: heroku-dockercfg-generator
-
-    - name: Trigger Release
-      service: heroku-deployment
-      command: |-
-        /bin/sh -c "echo $HEROKU_APP_NAME &&
-        # Note: 'echo $HEROKU_API_KEY' reveals the secret key!
-
-        heroku container:release --app $HEROKU_APP_NAME web"
+# - name: Deploy Acc
+#   type: serial
+#   tag: ^(master|codeship)
+#   steps:
+#     - name: Push Image
+#       service: webapp
+#       type: push
+#       image_name: registry.heroku.com/minimylist-acc/web
+#       registry: registry.heroku.com
+#       dockercfg_service: heroku-dockercfg-generator
+#
+#     - name: Trigger Release
+#       service: heroku-deployment
+#       command: |-
+#         /bin/sh -c "echo $HEROKU_APP_NAME &&
+#         # Note: 'echo $HEROKU_API_KEY' reveals the secret key!
+#
+#         heroku container:release --app $HEROKU_APP_NAME web"
