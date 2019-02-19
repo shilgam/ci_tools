@@ -12,7 +12,7 @@ jobs:
       - run:
           name: "Func Tests"
           working_directory: .
-          command: docker-compose --project-name functests --file docker-compose.test.yml run --rm testweb
+          command: docker-compose --file docker-compose.test.yml run --rm web
 
   deploy:
     machine:

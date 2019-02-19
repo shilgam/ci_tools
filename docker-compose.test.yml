@@ -1,6 +1,6 @@
 version: '3.4'
 services:
-  testweb:
+  web:
     build: .
     volumes:
       - .:/usr/src/

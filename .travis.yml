@@ -12,7 +12,7 @@ jobs:
     - name: "Func Tests"
       script:
         - >
-          docker-compose --project-name functests --file docker-compose.test.yml run --rm testweb
+          docker-compose --file docker-compose.test.yml run --rm web
 
     - stage: "Deploy"
       name: "Deploy Prod"
