@@ -25,8 +25,12 @@ services:
       - chrome18
       - chrome19
       - chrome20
+      - chrome21
+      - chrome22
+      - chrome23
+      - chrome24
     environment:
-      DJANGO_TEST_PROCESSES: 20
+      DJANGO_TEST_PROCESSES: 24
     entrypoint: ["./bin/test.sh"]
     command: python ./manage.py test functional_tests --parallel
 
@@ -206,6 +210,43 @@ services:
       HUB_HOST: hub
 
   chrome20:
+    image: selenium/node-chrome:3.14.0-gallium
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - hub
+    environment:
+      HUB_HOST: hub
+
+  chrome21:
+    image: selenium/node-chrome:3.14.0-gallium
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - hub
+    environment:
+      HUB_HOST: hub
+
+  chrome22:
+    image: selenium/node-chrome:3.14.0-gallium
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - hub
+    environment:
+      HUB_HOST: hub
+
+
+  chrome23:
+    image: selenium/node-chrome:3.14.0-gallium
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - hub
+    environment:
+      HUB_HOST: hub
+
+  chrome24:
     image: selenium/node-chrome:3.14.0-gallium
     volumes:
       - /dev/shm:/dev/shm
