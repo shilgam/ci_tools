@@ -13,8 +13,12 @@ services:
       - chrome6
       - chrome7
       - chrome8
+      - chrome9
+      - chrome10
+      - chrome11
+      - chrome12
     environment:
-      DJANGO_TEST_PROCESSES: 8
+      DJANGO_TEST_PROCESSES: 12
     entrypoint: ["./bin/test.sh"]
     command: python ./manage.py test functional_tests --parallel
 
@@ -85,6 +89,42 @@ services:
       HUB_HOST: hub
 
   chrome8:
+    image: selenium/node-chrome:3.14.0-gallium
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - hub
+    environment:
+      HUB_HOST: hub
+
+  chrome9:
+    image: selenium/node-chrome:3.14.0-gallium
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - hub
+    environment:
+      HUB_HOST: hub
+
+  chrome10:
+    image: selenium/node-chrome:3.14.0-gallium
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - hub
+    environment:
+      HUB_HOST: hub
+
+  chrome11:
+    image: selenium/node-chrome:3.14.0-gallium
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - hub
+    environment:
+      HUB_HOST: hub
+
+  chrome12:
     image: selenium/node-chrome:3.14.0-gallium
     volumes:
       - /dev/shm:/dev/shm
