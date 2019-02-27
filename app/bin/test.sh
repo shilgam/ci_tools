@@ -18,6 +18,10 @@ dockerize -wait http://chrome:5555 \
           -wait http://chrome14:5555 \
           -wait http://chrome15:5555 \
           -wait http://chrome16:5555 \
+          -wait http://chrome17:5555 \
+          -wait http://chrome18:5555 \
+          -wait http://chrome19:5555 \
+          -wait http://chrome20:5555 \
           -timeout 20s
 
 exec "$@"
