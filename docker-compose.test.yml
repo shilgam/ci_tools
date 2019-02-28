@@ -29,10 +29,6 @@ services:
       - chrome22
       - chrome23
       - chrome24
-      - chrome25
-      - chrome26
-      - chrome27
-      - chrome28
     environment:
       DJANGO_TEST_PROCESSES: 28
     entrypoint: ["./bin/test.sh"]
@@ -250,42 +246,6 @@ services:
       HUB_HOST: hub
 
   chrome24:
-    image: selenium/node-chrome:3.14.0-gallium
-    volumes:
-      - /dev/shm:/dev/shm
-    depends_on:
-      - hub
-    environment:
-      HUB_HOST: hub
-
-  chrome25:
-    image: selenium/node-chrome:3.14.0-gallium
-    volumes:
-      - /dev/shm:/dev/shm
-    depends_on:
-      - hub
-    environment:
-      HUB_HOST: hub
-
-  chrome26:
-    image: selenium/node-chrome:3.14.0-gallium
-    volumes:
-      - /dev/shm:/dev/shm
-    depends_on:
-      - hub
-    environment:
-      HUB_HOST: hub
-
-  chrome27:
-    image: selenium/node-chrome:3.14.0-gallium
-    volumes:
-      - /dev/shm:/dev/shm
-    depends_on:
-      - hub
-    environment:
-      HUB_HOST: hub
-
-  chrome28:
     image: selenium/node-chrome:3.14.0-gallium
     volumes:
       - /dev/shm:/dev/shm
