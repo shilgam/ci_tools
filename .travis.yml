@@ -7,11 +7,14 @@ jobs:
     - stage: "Tests"
       name: "Unit Tests"
       script:
-        - docker-compose run --rm web python manage.py test lists
+        - |
+          docker info
+          docker-compose run --rm web python manage.py test lists
 
     - name: "Func Tests"
       script:
-        - >
+        - |
+          docker info
           docker-compose --file docker-compose.test.yml run --rm web
 
     - stage: "Deploy"

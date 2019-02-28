@@ -8,7 +8,9 @@ jobs:
       - run:
           name: "Unit Tests"
           working_directory: .
-          command: pwd && docker-compose run --rm web python manage.py test lists
+          command: |
+            docker info
+            docker-compose run --rm web python manage.py test lists
 
   func_test:
     machine:
@@ -18,7 +20,9 @@ jobs:
       - run:
           name: "Func Tests"
           working_directory: .
-          command: docker-compose --file docker-compose.test.yml run --rm web
+          command: |
+            docker info
+            docker-compose --file docker-compose.test.yml run --rm web
 
   deploy:
     machine:

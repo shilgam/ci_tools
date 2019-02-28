@@ -33,14 +33,18 @@ Unit Tests:
   only:
     - /^(master|gitlab).*$/
   script:
-    - docker-compose run --rm web python manage.py test lists
+    - |
+      docker info
+      docker-compose run --rm web python manage.py test lists
 
 Func Tests:
   stage: test
   only:
     - /^(master|gitlab).*$/
   script:
-    - docker-compose --file docker-compose.test.yml run --rm web
+    - |
+      docker info
+      docker-compose --file docker-compose.test.yml run --rm web
 
 Deploy Staging:
   stage: deploy
