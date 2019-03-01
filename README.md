@@ -4,9 +4,9 @@
 
 ## Prerequisites
 
-1. Docker installed
+1. Docker and docker-compose installed
 
-2. [VNC Viewer](https://www.realvnc.com/en/connect/download/viewer/) installed - set up VNC connection with browser session
+2. [VNC Viewer](https://www.realvnc.com/en/connect/download/viewer/) installed - to set up VNC connection with browser session
 
 ## Usage
 
@@ -22,26 +22,25 @@
 
         $ docker-compose down
 
-1. Run the test suite
+### Run the test suite
 
-    1. Functional tests
+1. Unit tests
 
-        1. run tests:
+        $ docker-compose run --rm web python manage.py test lists
 
-                $ docker-compose --file docker-compose.test.yml run --rm web
-            Notes:
-            - To visually see what the browser is doing you will need to create connection to VNC Server `localhost:5900`
-            - Selenium Grid URL: http://0.0.0.0:4444/
+1. Functional tests
 
-        1. clean up after tests:
+        $ docker-compose --file docker-compose.test.yml run --rm web
+    Notes:
+    - To visually see what the browser is doing you will need to create connection to VNC Server `localhost:5900`
+    - Selenium Grid URL: http://0.0.0.0:4444/
 
-                $ docker-compose --file docker-compose.test.yml down
+1. Clean up containers after tests
 
-    1. Unit tests
+        $ docker-compose down
+        $ docker-compose --file docker-compose.test.yml down
 
-            $ docker-compose run --rm web python manage.py test lists
-
-## Deploy to Heroku
+### Deploy to Heroku
 
 1. Make sure you have a working Docker installation (eg. `docker ps`) and that you’re logged in to Heroku (`heroku login`).
 
