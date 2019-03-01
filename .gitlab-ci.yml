@@ -32,15 +32,19 @@ Unit Tests:
   stage: test
   only:
     - /^(master_|gitlab).*$/
-  script:
-    - docker-compose run --rm web python manage.py test lists
+  script: |
+    docker info
+    docker image ls
+    docker-compose run --rm web python manage.py test lists
 
 Func Tests:
   stage: test
   only:
     - /^(master_|gitlab).*$/
-  script:
-    - docker-compose --file docker-compose.test.yml run --rm web
+  script: |
+    docker info
+    docker image ls
+    docker-compose --file docker-compose.test.yml run --rm web
 
 Deploy Staging:
   stage: deploy
@@ -56,6 +60,7 @@ Deploy Staging:
     - echo $HEROKU_API_KEY | docker login --username=_ --password-stdin registry.heroku.com
 
     # build
+    - docker image ls
     - docker build --tag registry.heroku.com/$HEROKU_APP_NAME/web .
 
     # push

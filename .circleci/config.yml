@@ -8,7 +8,10 @@ jobs:
       - run:
           name: "Unit Tests"
           working_directory: .
-          command: pwd && docker-compose run --rm web python manage.py test lists
+          command: |
+            docker info
+            docker image ls
+            docker-compose run --rm web python manage.py test lists
 
   func_test:
     machine:
@@ -18,7 +21,10 @@ jobs:
       - run:
           name: "Func Tests"
           working_directory: .
-          command: docker-compose --file docker-compose.test.yml run --rm web
+          command: |
+            docker info
+            docker image ls
+            docker-compose --file docker-compose.test.yml run --rm web
 
   deploy:
     machine:
@@ -39,6 +45,7 @@ jobs:
             echo $HEROKU_API_KEY | docker login --username=$HEROKU_LOGIN --password-stdin registry.heroku.com
 
             # build
+            docker image ls
             docker build --tag registry.heroku.com/$HEROKU_APP_NAME/web .
 
             # push
