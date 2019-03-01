@@ -55,15 +55,15 @@ workflows:
       - unit_test:
           filters:
             branches:
-              only: /^(master|circle).*/
+              only: /^(master_|circle).*/
       - func_test:
           filters:
             branches:
-              only: /^(master|circle).*/
+              only: /^(master_|circle).*/
       - deploy:
           filters:
             branches:
-              only: /^(master|circle).*/
+              only: /^(master_|circle).*/
           requires:
             - unit_test
             - func_test

@@ -31,21 +31,21 @@ stages:
 Unit Tests:
   stage: test
   only:
-    - /^(master|gitlab).*$/
+    - /^(master_|gitlab).*$/
   script:
     - docker-compose run --rm web python manage.py test lists
 
 Func Tests:
   stage: test
   only:
-    - /^(master|gitlab).*$/
+    - /^(master_|gitlab).*$/
   script:
     - docker-compose --file docker-compose.test.yml run --rm web
 
 Deploy Staging:
   stage: deploy
   only:
-    - /^(master|gitlab).*$/
+    - /^(master_|gitlab).*$/
   variables:
     HEROKU_APP_NAME: minimylist-staging
     HEROKU_LOGIN: _
