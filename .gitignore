@@ -11,3 +11,4 @@ deployment.env
 heroku-cli/
 travis-cli/
 codeship.aes
+/app/static
