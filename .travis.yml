@@ -15,7 +15,7 @@ jobs:
       script: |
         docker info
         docker image ls
-        docker-compose --file docker-compose.test.yml run --rm web
+        docker-compose --file docker-compose.test.yml run -e STAGING_SERVER=minimylist-staging.ecsc.ml:8000 --rm web
 
     - stage: "Deploy"
       name: "Deploy Prod"
