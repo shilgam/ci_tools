@@ -12,3 +12,4 @@ heroku-cli/
 travis-cli/
 codeship.aes
 /app/static
+.env
