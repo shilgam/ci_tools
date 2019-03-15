@@ -11,7 +11,11 @@ RUN mkdir /usr/src/app
 WORKDIR /usr/src/app
 
 COPY ./app/requirements.txt .
-RUN pip install -r requirements.txt
+
+RUN apk add --no-cache --virtual build-dependencies build-base libffi-dev openssl-dev \
+    # fabric3 deps
+    && pip install -r requirements.txt # \
+    # && apk del build-dependencies
 
 ENV PYTHONUNBUFFERED 1
 
