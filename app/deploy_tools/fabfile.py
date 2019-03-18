@@ -1,6 +1,8 @@
 import random
 from fabric.contrib.files import append, exists
 from fabric.api import cd, env, local, run
+from fabric.utils import puts
+
 
 REPO_URL = 'https://github.com/shilgam/tdd-with-python.git'
 
@@ -22,15 +24,18 @@ def _get_latest_source():
     if exists('.git'):
         run('git fetch')
     else:
+        puts('>>> cloning repo...')
         run(f'git clone {REPO_URL} .')
-        current_commit = local("git log -n 1 --format=%H", capture=True)
-        run(f'git reset --hard {current_commit}')
+
+    current_commit = local("git log -n 1 --format=%H", capture=True)
+    run(f'git reset --hard {current_commit}')
+    run('git log -5 --oneline --decorate --graph | cat')
 
 
 def _update_virtualenv():
     if not exists('virtualenv/bin/pip'):
-        run(f'python3.6 -v venv virtualenv')
-    run('.virtualenv/bin/pip install -r requirements.txt')
+        run(f'python3.6 -m venv virtualenv')
+    run('virtualenv/bin/pip install -r requirements.txt')
 
 
 def _create_or_update_dotenv():
