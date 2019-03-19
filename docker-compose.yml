@@ -4,6 +4,7 @@ services:
     build: .
     volumes:
       - .:/usr/src/
+      # - ~/.ssh/:/home/ishakirov/.ssh/
     ports:
       - "8000:8000"
     entrypoint: ["./bin/entrypoint.sh"]
