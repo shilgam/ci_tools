@@ -13,3 +13,5 @@ travis-cli/
 codeship.aes
 /app/static
 .env
+jenkins-data
+jenkins
