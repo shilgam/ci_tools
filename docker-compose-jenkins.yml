@@ -1,0 +1,18 @@
+version: '3.4'
+services:
+  jenkins:
+    build:
+      context: .
+      dockerfile: Dockerfile-jenkins
+    # network_mode: "none"
+    # stdin_open: true
+    # tty: true
+    volumes:
+      - ./jenkins-data:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - $PWD/jenkins:/home
+      # - .:/usr/src/
+      # - ~/.ssh/:/home/ishakirov/.ssh/
+    ports:
+      - "8080:8080"
+    # command: /bin/bash
