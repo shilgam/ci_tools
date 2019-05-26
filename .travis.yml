@@ -2,6 +2,12 @@ sudo: required
 services:
   - docker/compose:1.23.1
 
+env:
+  global:
+    - HEROKU_APP_NAME=minimylist
+    - HEROKU_LOGIN=_
+    # - HEROKU_API_KEY # defined in repository settings
+
 jobs:
   include:
     - stage: "Tests"
