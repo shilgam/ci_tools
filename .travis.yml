@@ -5,14 +5,14 @@ services:
 jobs:
   include:
     - stage: "Tests"
-      name: "Unit Tests"
+      name: "Func Tests"
       script:
-        - docker-compose run --rm web python manage.py test lists
+        - docker-compose run --rm web pytest
 
-    - name: "Func Tests"
+    - name: "Unit Tests"
       script:
         - >
-          docker-compose --file docker-compose.test.yml run --rm web
+          echo "run unit tests"
 
     - stage: "Deploy"
       name: "Deploy Prod"
