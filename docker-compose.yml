@@ -6,6 +6,4 @@ services:
       - .:/usr/src/
     ports:
       - "5000:5000"
-    # entrypoint: ["./bin/entrypoint.sh"]
     command: ["python", "main.py"]
-    # command: gunicorn --bind 0.0.0.0:8000 superlists.wsgi
