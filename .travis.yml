@@ -16,12 +16,11 @@ jobs:
 
     - stage: "Deploy"
       name: "Deploy Prod"
-      script:
-        - >
+      script: |
           echo $HEROKU_API_KEY # Travis not reveals the secret keys
 
           # login
-          echo "HEROKU_API_KEY | docker login --username=$HEROKU_LOGIN --password-stdin registry.heroku.com
+          echo $HEROKU_API_KEY | docker login --username=$HEROKU_LOGIN --password-stdin registry.heroku.com
 
           # build & push
           heroku container:push web --app $HEROKU_APP_NAME
