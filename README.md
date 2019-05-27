@@ -8,21 +8,19 @@ Popular CI/CD Tools Comparison: Travis, CircleCI, Gitlab CI, Codeship Pro
 
 ## Prerequisites
 
-1. Docker and docker-compose installed
-
-2. [VNC Viewer](https://www.realvnc.com/en/connect/download/viewer/) installed - to set up VNC connection with browser session
+Docker and docker-compose installed
 
 ## Usage
 
 1. Clone the repo
 
-1. Build the Docker image and start all app services:
+1. Build the Docker image and start app services:
 
         $ docker-compose up --build
 
 1. Launch the app: http://0.0.0.0:5000/
 
-1. Stop all app services and remove containers:
+1. Stop app services and remove containers:
 
         $ docker-compose down
 
@@ -30,12 +28,4 @@ Popular CI/CD Tools Comparison: Travis, CircleCI, Gitlab CI, Codeship Pro
 
 1. Run tests
 
-        $ docker-compose --file docker-compose.test.yml run --rm web
-    Notes:
-    - To visually see what the browser is doing you will need to create connection to VNC Server `localhost:5900`
-    - Selenium Grid URL: http://0.0.0.0:4444/
-
-1. Clean up containers after tests
-
-        $ docker-compose down
-        $ docker-compose --file docker-compose.test.yml down
+        $ docker-compose run --rm web
