@@ -2,15 +2,15 @@
   type: parallel
   tag: ^(master|codeship)
   steps:
-    - name: Unit Tests
-      service: webapp
-      command: python manage.py test lists
-
     - name: Func Tests
       service: webapp
-      command: python manage.py test functional_tests
+      command: pytest
 
-- name: Deploy Acc
+    - name: Unit Tests
+      service: webapp
+      command: echo "run unit tests"
+
+- name: Deploy
   type: serial
   tag: ^(master|codeship)
   steps:
