@@ -16,23 +16,19 @@ Popular CI/CD Tools Comparison: Travis, CircleCI, Gitlab CI, Codeship Pro
 
 1. Clone the repo
 
-1. Build the Docker image and start all services:
+1. Build the Docker image and start all app services:
 
         $ docker-compose up --build
 
-1. Launch the app: http://0.0.0.0:8000/
+1. Launch the app: http://0.0.0.0:5000/
 
-1. Stop all services and remove containers:
+1. Stop all app services and remove containers:
 
         $ docker-compose down
 
 ### Run the test suite
 
-1. Unit tests
-
-        $ docker-compose run --rm web python manage.py test lists
-
-1. Functional tests
+1. Run tests
 
         $ docker-compose --file docker-compose.test.yml run --rm web
     Notes:

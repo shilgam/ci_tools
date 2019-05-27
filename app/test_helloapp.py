@@ -1,4 +1,4 @@
-from main import app
+from helloapp import app
 
 
 def test_hello():

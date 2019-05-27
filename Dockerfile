@@ -6,8 +6,6 @@ WORKDIR /usr/src/app
 RUN pip install Flask \
                 pytest
 
-ENV PYTHONUNBUFFERED 1
-
 COPY . /usr/src/
 
-CMD python main.py
+CMD python helloapp.py

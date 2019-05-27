@@ -6,4 +6,4 @@ services:
       - .:/usr/src/
     ports:
       - "5000:5000"
-    command: ["python", "main.py"]
+    command: ["python", "helloapp.py"]

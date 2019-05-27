@@ -43,7 +43,7 @@ Unit Tests:
     - echo "run unit tests"
 
 
-Deploy:
+Deploy Prod:
   stage: deploy
   only:
     - /^(master|gitlab).*$/
