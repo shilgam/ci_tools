@@ -6,9 +6,9 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Unit Tests"
+          name: "Func Tests"
           working_directory: .
-          command: pwd && docker-compose run --rm web python manage.py test lists
+          command: docker-compose run --rm web pytest
 
   func_test:
     machine:
@@ -16,9 +16,9 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Func Tests"
+          name: "Unit Tests"
           working_directory: .
-          command: docker-compose --file docker-compose.test.yml run --rm web
+          command: echo "run unit tests"
 
   deploy:
     machine:
@@ -35,7 +35,6 @@ jobs:
             # Note: `echo $HEROKU_API_KEY` reveals the secret key!
 
             # login
-            echo $HEROKU_API_KEY | docker login --username=$HEROKU_LOGIN --password-stdin registry.heroku.com
             echo $HEROKU_API_KEY | docker login --username=$HEROKU_LOGIN --password-stdin registry.heroku.com
 
             # build
