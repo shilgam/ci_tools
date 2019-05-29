@@ -53,14 +53,10 @@ Deploy Prod:
   script:
     # Note: `echo $HEROKU_API_KEY` reveals the secret key!
 
-    # login
-    - echo $HEROKU_API_KEY | docker login --username=$HEROKU_LOGIN --password-stdin registry.heroku.com
+    # set permissions
+    - chmod +x ./app/bin/functions.sh
 
-    # build
-    - docker build --tag registry.heroku.com/$HEROKU_APP_NAME/web .
+    # run script and load functions
+    - . ./app/bin/functions.sh
 
-    # push
-    - docker push registry.heroku.com/$HEROKU_APP_NAME/web
-
-    # release
-    - docker-compose --project-name deploy --file docker-compose.deploy.yml run -e HEROKU_API_KEY=$HEROKU_API_KEY --rm heroku container:release web --app $HEROKU_APP_NAME
+    - build_and_deploy_image_to_heroku
