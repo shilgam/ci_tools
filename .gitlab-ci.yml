@@ -26,41 +26,8 @@ before_script:
 
 stages:
   - test
-  - deploy
 
 Func Tests:
   stage: test
-  only:
-    - /^(master|gitlab).*$/
   script:
     - docker-compose run --rm web pytest
-
-Unit Tests:
-  stage: test
-  only:
-    - /^(master|gitlab).*$/
-  script:
-    - echo "run unit tests"
-
-
-Deploy Prod:
-  stage: deploy
-  only:
-    - /^(master|gitlab).*$/
-  variables:
-    HEROKU_APP_NAME: minimylist-staging
-    HEROKU_LOGIN: _
-  script:
-    # Note: `echo $HEROKU_API_KEY` reveals the secret key!
-
-    # login
-    - echo $HEROKU_API_KEY | docker login --username=$HEROKU_LOGIN --password-stdin registry.heroku.com
-
-    # build
-    - docker build --tag registry.heroku.com/$HEROKU_APP_NAME/web .
-
-    # push
-    - docker push registry.heroku.com/$HEROKU_APP_NAME/web
-
-    # release
-    - docker-compose --project-name deploy --file docker-compose.deploy.yml run -e HEROKU_API_KEY=$HEROKU_API_KEY --rm heroku container:release web --app $HEROKU_APP_NAME

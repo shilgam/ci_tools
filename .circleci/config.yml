@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  unit_test:
+  func_test:
     machine:
       image: circleci/classic:201711-01
     steps:
@@ -10,59 +10,11 @@ jobs:
           working_directory: .
           command: docker-compose run --rm web pytest
 
-  func_test:
-    machine:
-      image: circleci/classic:201711-01
-    steps:
-      - checkout
-      - run:
-          name: "Unit Tests"
-          working_directory: .
-          command: echo "run unit tests"
-
-  deploy:
-    machine:
-      image: circleci/classic:201711-01
-    environment:
-      HEROKU_APP_NAME: minimylist-intgr
-      HEROKU_LOGIN: _
-    steps:
-      - checkout
-      - run:
-          name: "Deploy Prod"
-          working_directory: .
-          command: |
-            # Note: `echo $HEROKU_API_KEY` reveals the secret key!
-
-            # login
-            echo $HEROKU_API_KEY | docker login --username=$HEROKU_LOGIN --password-stdin registry.heroku.com
-
-            # build
-            docker build --tag registry.heroku.com/$HEROKU_APP_NAME/web .
-
-            # push
-            docker push registry.heroku.com/$HEROKU_APP_NAME/web
-
-            # release
-            docker-compose --project-name deploy --file docker-compose.deploy.yml run -e HEROKU_API_KEY=$HEROKU_API_KEY --rm heroku container:release web --app $HEROKU_APP_NAME
-
-
 workflows:
   version: 2
   test_and_deploy:
     jobs:
-      - unit_test:
-          filters:
-            branches:
-              only: /^(master|circle).*/
       - func_test:
           filters:
             branches:
               only: /^(master|circle).*/
-      - deploy:
-          filters:
-            branches:
-              only: /^(master|circle).*/
-          requires:
-            - unit_test
-            - func_test

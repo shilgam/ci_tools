@@ -1,18 +1,4 @@
 webapp:
   build:
-    image: registry.heroku.com/minimylist/web
     dockerfile: Dockerfile
   encrypted_env_file: deployment.env.encrypted
-
-heroku-dockercfg-generator:
-  image: codeship/heroku-dockercfg-generator
-  add_docker: true
-  encrypted_env_file: deployment.env.encrypted
-
-heroku-deployment:
-  image: codeship/heroku-deployment
-  encrypted_env_file: deployment.env.encrypted
-  volumes:
-    - ./:/deploy
-  environment:
-    HEROKU_APP_NAME: minimylist-acc

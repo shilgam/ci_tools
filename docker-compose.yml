@@ -2,8 +2,6 @@ version: '3.4'
 services:
   web:
     build: .
-    volumes:
-      - .:/usr/src/
     ports:
       - "5000:5000"
-    command: ["python", "helloapp.py"]
+    command: ["python", "/usr/src/helloapp.py"]

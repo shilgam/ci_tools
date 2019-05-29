@@ -2,35 +2,10 @@ sudo: required
 services:
   - docker/compose:1.23.1
 
-env:
-  global:
-    - HEROKU_APP_NAME=minimylist
-    - HEROKU_LOGIN=_
-    # - HEROKU_API_KEY # defined in repository settings
-
 jobs:
   include:
     - stage: "Tests"
       name: "Func Tests"
       script:
         - docker-compose run --rm web pytest
-
-    - name: "Unit Tests"
-      script:
-        - >
-          echo "run unit tests"
-
-    - stage: "Deploy"
-      name: "Deploy Prod"
-      script: |
-          echo $HEROKU_API_KEY # Travis not reveals the secret keys
-
-          # login
-          echo $HEROKU_API_KEY | docker login --username=$HEROKU_LOGIN --password-stdin registry.heroku.com
-
-          # build & push
-          heroku container:push web --app $HEROKU_APP_NAME
-
-          # release
-          heroku container:release web --app $HEROKU_APP_NAME
       if: branch =~ /^(master|travis).*/
