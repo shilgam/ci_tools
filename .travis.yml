@@ -1,5 +1,5 @@
 services:
-  - docker/compose:1.23.1
+  - docker
 
 jobs:
   include:
