@@ -27,7 +27,7 @@ before_script:
 stages:
   - test
 
-Func Tests:
+My Awesome Tests:
   stage: test
   script:
     - docker-compose run --rm web pytest

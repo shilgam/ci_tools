@@ -4,7 +4,7 @@ services:
 jobs:
   include:
     - stage: "Tests"
-      name: "Func Tests"
+      name: "My Awesome Tests"
       script:
         - docker-compose run --rm web pytest
       if: branch =~ /^(master|travis).*/

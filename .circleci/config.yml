@@ -6,7 +6,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Func Tests"
+          name: "My Awesome Tests"
           working_directory: .
           command: docker-compose run --rm web pytest
 
