@@ -11,7 +11,7 @@
       type: push
       image_name: registry.heroku.com/minimylist-acc/web
       registry: registry.heroku.com
-      dockercfg_service: heroku-dockercfg-generator
+      dockercfg_service: heroku-deployment
     - name: Trigger Release
       service: heroku-deployment
       command: |-
