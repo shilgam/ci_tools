@@ -10,6 +10,23 @@ jobs:
           working_directory: .
           command: docker-compose run --rm web pytest
 
+  deploy:
+    machine:
+      image: circleci/classic:201711-01
+    environment:
+      HEROKU_APP_NAME: minimylist-intgr
+      HEROKU_LOGIN: _
+    steps:
+      - checkout
+      - run:
+          name: "Deploy Intgr"
+          working_directory: .
+          command: |
+            echo $HEROKU_API_KEY # reveals the secret key
+
+            # deployment step
+
+
 workflows:
   version: 2
   test_and_deploy:
@@ -18,3 +35,9 @@ workflows:
           filters:
             branches:
               only: /^(master|circle).*/
+      - deploy:
+          filters:
+            branches:
+              only: /^(master|circle).*/
+          requires:
+            - func_test

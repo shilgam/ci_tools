@@ -1,10 +1,24 @@
 services:
   - docker
 
+env:
+  global:
+    - FOO=1
+    - BAR=2
+
 jobs:
   include:
     - stage: "Tests"
       name: "My Awesome Tests"
       script:
         - docker-compose run --rm web pytest
+        - echo $FOO
       if: branch =~ /^(master|travis).*/
+
+    - stage: "Deploy"
+      name: "Deploy Prod"
+      script:
+        - >
+          echo $HEROKU_API_KEY # Travis not reveals the secret keys
+
+          # deployment step

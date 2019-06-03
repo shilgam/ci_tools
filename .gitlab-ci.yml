@@ -31,3 +31,16 @@ My Awesome Tests:
   stage: test
   script:
     - docker-compose run --rm web pytest
+
+Deploy Staging:
+  stage: deploy
+  only:
+    - /^(master|gitlab).*$/
+  variables:
+    HEROKU_APP_NAME: minimylist-staging
+    HEROKU_LOGIN: _
+  script:
+    # Note: `echo $HEROKU_API_KEY` reveals the secret key!
+    echo $HEROKU_APP_NAME
+
+    # deployment step

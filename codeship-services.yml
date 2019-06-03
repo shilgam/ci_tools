@@ -1,3 +1,11 @@
 webapp:
   build:
     dockerfile: Dockerfile
+  environment:
+    - FOO=1
+    - BAR=2
+  encrypted_env_file: deployment.env.encrypted
+
+heroku-dockercfg-generator:
+  image: codeship/heroku-dockercfg-generator
+  add_docker: true
