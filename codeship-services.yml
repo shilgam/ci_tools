@@ -1,4 +1,3 @@
 webapp:
   build:
     dockerfile: Dockerfile
-  encrypted_env_file: deployment.env.encrypted
