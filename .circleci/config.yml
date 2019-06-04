@@ -14,7 +14,4 @@ workflows:
   version: 2
   test_and_deploy:
     jobs:
-      - func_test:
-          filters:
-            branches:
-              only: /^(master|circle).*/
+      - func_test
